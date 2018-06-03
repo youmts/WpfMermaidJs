@@ -38,10 +38,26 @@ namespace WpfMermaidJs
 {0}
   </div>
   <script src=""mermaid.min.js""></script>
-  <script>mermaid.initialize({{startOnLoad:true}});</script>
+  <script>
+    var config = {{
+                startOnLoad:true,
+                flowchart:{{
+                        useMaxWidth:false,
+                    }}
+            }};
+    mermaid.initialize(config);
+  </script>
 </body>
 </html>
 ";
+
+        public ReactiveProperty<string> MermaidText {get;} = new ReactiveProperty<string>(@"
+graph LR
+    A --- B
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:fa-spinner);
+");
+        public ReactiveProperty<double> ZoomFactor { get; } = new ReactiveProperty<double>(1.0);
 
         public MainWindow()
         {
@@ -50,30 +66,22 @@ namespace WpfMermaidJs
             DataContext = this;
 
             WebView.Url = $"file:{Directory.GetCurrentDirectory()}/{mermaidHtmlFileName}";
-            MermaidText.Value = @"
-graph LR
-    A --- B
-    B-->C[fa:fa-ban forbidden]
-    B-->D(fa:fa-spinner);
-";
 
             MermaidText
                 .Throttle(TimeSpan.FromMilliseconds(1000))
                 .Subscribe(x =>
-            {
-                if (x == null) return;
-                WriteToHtml(x);
-                WebView.Reload();
-            });
+                {
+                    if (x == null) return;
+                    WriteToHtml(x);
+                    WebView.Reload();
+                });
 
+            ZoomFactor.Subscribe(x => { WebView.ZoomFactor = x; });
         }
 
         private static void WriteToHtml(string x)
         {
             File.WriteAllText(mermaidHtmlFileName, string.Format(mermaidHtmlFormat, x));
         }
-
-        public string Url { get; set; }
-        public ReactiveProperty<string> MermaidText {get;} = new ReactiveProperty<string>();
     }
 }

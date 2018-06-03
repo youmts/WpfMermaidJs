@@ -13,11 +13,19 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <TextBox AcceptsReturn="True" Text="{Binding MermaidText.Value, UpdateSourceTrigger=PropertyChanged}" />
-        <eo:WebControl Grid.Column="1">
-            <eo:WebControl.WebView>
-                <eo:WebView x:Name="WebView">
-                </eo:WebView>
-            </eo:WebControl.WebView>
-        </eo:WebControl>
+        <DockPanel Grid.Column="1">
+            <Slider DockPanel.Dock="Bottom"
+                    Minimum="0.25" 
+                    Maximum="5.00"
+                    SmallChange="0.25"
+                    LargeChange="0.25"
+                    Value="{Binding ZoomFactor.Value}"/>
+            <eo:WebControl>
+                <eo:WebControl.WebView>
+                    <eo:WebView x:Name="WebView">
+                    </eo:WebView>
+                </eo:WebControl.WebView>
+            </eo:WebControl>
+        </DockPanel>
     </Grid>
 </Window>
