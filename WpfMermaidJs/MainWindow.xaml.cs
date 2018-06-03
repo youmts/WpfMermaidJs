@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EO.WebBrowser;
 
 namespace WpfMermaidJs
 {
@@ -23,6 +24,11 @@ namespace WpfMermaidJs
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void WebView_OnLoadFailed(object sender, LoadFailedEventArgs e)
+        {
+            MessageBox.Show($"{e.ErrorMessage}\r\n{e.Url}");
         }
     }
 }

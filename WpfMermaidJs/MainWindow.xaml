@@ -10,7 +10,8 @@
     <Grid>
         <eo:WebControl>
             <eo:WebControl.WebView>
-                <eo:WebView Url="www.google.com">
+                <eo:WebView Url="file:c:work/mermaid.html"
+                            LoadFailed="WebView_OnLoadFailed">
                 </eo:WebView>
             </eo:WebControl.WebView>
         </eo:WebControl>
