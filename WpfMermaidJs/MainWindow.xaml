@@ -8,10 +8,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <eo:WebControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBox AcceptsReturn="True" Text="{Binding MermaidText.Value, UpdateSourceTrigger=PropertyChanged}" />
+        <eo:WebControl Grid.Column="1">
             <eo:WebControl.WebView>
-                <eo:WebView x:Name="WebView"
-                            LoadFailed="WebView_OnLoadFailed">
+                <eo:WebView x:Name="WebView">
                 </eo:WebView>
             </eo:WebControl.WebView>
         </eo:WebControl>
