@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,13 @@ namespace WpfMermaidJs
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = this;
+
+            WebView.Url = $"file:{Directory.GetCurrentDirectory()}/mermaid.html";
         }
+
+        public string Url { get; set; }
 
         private void WebView_OnLoadFailed(object sender, LoadFailedEventArgs e)
         {
