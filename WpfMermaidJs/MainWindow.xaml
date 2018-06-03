@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMermaidJs"
+        xmlns:eo="http://schemas.essentialobjects.com/wpf/"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <eo:WebControl>
+            <eo:WebControl.WebView>
+                <eo:WebView Url="www.google.com">
+                </eo:WebView>
+            </eo:WebControl.WebView>
+        </eo:WebControl>
     </Grid>
 </Window>
