@@ -35,6 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EO.Base, Version=18.1.91.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.1.91\lib\EO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebBrowser, Version=18.1.91.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.1.91\lib\EO.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebBrowser.Wpf, Version=18.1.91.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.Wpf.18.1.91\lib\EO.WebBrowser.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebEngine, Version=18.1.91.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.1.91\lib\EO.WebEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -89,6 +101,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
