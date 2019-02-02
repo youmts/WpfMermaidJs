@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMermaidJs"
-        xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+        xmlns:ct="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,12 +20,8 @@
                     SmallChange="0.25"
                     LargeChange="0.25"
                     Value="{Binding ZoomFactor.Value}"/>
-            <eo:WebControl>
-                <eo:WebControl.WebView>
-                    <eo:WebView x:Name="WebView">
-                    </eo:WebView>
-                </eo:WebControl.WebView>
-            </eo:WebControl>
+            <ct:WebView x:Name="WebView">
+            </ct:WebView>
         </DockPanel>
     </Grid>
 </Window>

@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using EO.WebBrowser;
+
+using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 using Reactive.Bindings;
 
 namespace WpfMermaidJs
@@ -65,23 +56,37 @@ graph LR
 
             DataContext = this;
 
-            WebView.Url = $"file:{Directory.GetCurrentDirectory()}/{mermaidHtmlFileName}";
-
             MermaidText
                 .Throttle(TimeSpan.FromMilliseconds(1000))
                 .Subscribe(x =>
                 {
                     if (x == null) return;
                     WriteToHtml(x);
-                    WebView.Reload();
+                    Dispatcher.Invoke(WebView.Refresh);
                 });
 
-            ZoomFactor.Subscribe(x => { WebView.ZoomFactor = x; });
+            //            ZoomFactor.Subscribe(x => { WebView..ZoomFactor = x; });
         }
 
         private static void WriteToHtml(string x)
         {
             File.WriteAllText(mermaidHtmlFileName, string.Format(mermaidHtmlFormat, x));
+        }
+
+        private class StreamUriResolver : IUriToStreamResolver
+        {
+            public Stream UriToStream(Uri uri)
+            {
+                Uri baseDir = new Uri(AppDomain.CurrentDomain.BaseDirectory);
+                Uri target = new Uri(baseDir, uri.LocalPath.TrimStart('/'));
+                return new FileStream(target.AbsolutePath, FileMode.Open);
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            WriteToHtml(MermaidText.Value);
+            WebView.NavigateToLocalStreamUri(new Uri(mermaidHtmlFileName, UriKind.Relative), new StreamUriResolver());
         }
     }
 }
