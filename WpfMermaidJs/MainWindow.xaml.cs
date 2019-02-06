@@ -5,7 +5,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
-
+using System.Windows.Media;
 using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 using Reactive.Bindings;
 
@@ -24,7 +24,7 @@ namespace WpfMermaidJs
   <meta charset=""utf-8"">
   <link rel=""stylesheet"" href=""mermaid.min.css"">
 </head>
-<body>
+<body id=""main"">
   <div class=""mermaid"">
 {0}
   </div>
@@ -65,7 +65,14 @@ graph LR
                     Dispatcher.Invoke(WebView.Refresh);
                 });
 
-            //            ZoomFactor.Subscribe(x => { WebView..ZoomFactor = x; });
+            ZoomFactor
+                .Throttle(TimeSpan.FromMilliseconds(100))
+                .Subscribe(x =>
+                {
+                    Dispatcher.Invoke(() =>
+                        WebView.InvokeScriptAsync("eval", $"document.getElementById(\"main\").style.zoom = {x};")
+                    );
+                });
         }
 
         private static void WriteToHtml(string x)

@@ -20,8 +20,10 @@
                     SmallChange="0.25"
                     LargeChange="0.25"
                     Value="{Binding ZoomFactor.Value}"/>
-            <ct:WebView x:Name="WebView">
-            </ct:WebView>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ct:WebView x:Name="WebView">
+                </ct:WebView>
+            </ScrollViewer>
         </DockPanel>
     </Grid>
 </Window>
