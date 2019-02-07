@@ -24,7 +24,7 @@ namespace WpfMermaidJs
   <meta charset=""utf-8"">
   <link rel=""stylesheet"" href=""mermaid.min.css"">
 </head>
-<body id=""main"">
+<body>
   <div class=""mermaid"">
 {0}
   </div>
@@ -70,7 +70,7 @@ graph LR
                 .Subscribe(x =>
                 {
                     Dispatcher.Invoke(() =>
-                        WebView.InvokeScriptAsync("eval", $"document.getElementById(\"main\").style.zoom = {x};")
+                        WebView.InvokeScriptAsync("eval", $"document.body.style.zoom = {x};")
                     );
                 });
         }
